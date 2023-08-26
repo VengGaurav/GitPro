@@ -9,6 +9,8 @@ import {
 import UsernameForm from "./components/UsernameForm";
 import UserInfoCard from "./components/UserInfoCard";
 import axios from "axios";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 
 const theme = extendTheme({
   fonts: {
@@ -39,37 +41,27 @@ const theme = extendTheme({
 });
 
 function App() {
-  const [userData, setUserData] = useState(null);
-
-  const handleUsernameSubmit = (username) => {
-    axios
-      .get(`https://api.github.com/users/${username}`)
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  };
-
   return (
     <ChakraProvider theme={theme}>
-      <Box
-        bgGradient="linear(to-r, primary.100, secondary.100)"
-        minHeight="100vh"
-      >
-        <Box bg="primary.900" p={2}>
-          <Container maxW="container.lg" textAlign="center">
-            <Heading color="primary.700">GitHub User Info</Heading>
-          </Container>
-        </Box>
-        <Box py={6}>
-          <Container maxW="container.md">
-            <UsernameForm onSubmit={handleUsernameSubmit} />
-            {userData && <UserInfoCard user={userData} mt={4} />}
-          </Container>
-        </Box>
-      </Box>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="*"
+            element={
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                404 Not found
+              </div>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </ChakraProvider>
   );
 }
