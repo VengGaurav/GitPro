@@ -21,7 +21,7 @@ const UsernameForm = ({ onSubmit }) => {
       <form onSubmit={handleSubmit}>
         <FormControl>
           <FormLabel fontSize={20}>
-            Enter Username: mai gaurav mera kam daru sutta
+            Enter Username:
           </FormLabel>
           <Input
             type="text"
